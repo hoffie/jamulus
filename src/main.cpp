@@ -85,6 +85,7 @@ int main ( int argc, char** argv )
     QString      strRecordingDirName         = "";
     QString      strCentralServer            = "";
     QString      strServerInfo               = "";
+    QString      strServerExternalIP         = "";
     QString      strServerListFilter         = "";
     QString      strWelcomeMessage           = "";
     QString      strClientName               = "";
@@ -392,6 +393,21 @@ int main ( int argc, char** argv )
         }
 
 
+        // Server External IP --------------------------------------------------
+        if ( GetStringArgument ( tsConsole,
+                                 argc,
+                                 argv,
+                                 i,
+                                 "--serverexternalip", // no short form
+                                 "--serverexternalip",
+                                 strArgument ) )
+        {
+            strServerExternalIP = strArgument;
+            CommandLineOptions << "--serverexternalip";
+            continue;
+        }
+
+
         // Server info ---------------------------------------------------------
         if ( GetStringArgument ( tsConsole,
                                  argc,
@@ -692,6 +708,7 @@ int main ( int argc, char** argv )
                              strHTMLStatusFileName,
                              strCentralServer,
                              strServerInfo,
+                             strServerExternalIP,
                              strServerListFilter,
                              strWelcomeMessage,
                              strRecordingDirName,

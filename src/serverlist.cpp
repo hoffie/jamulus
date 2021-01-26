@@ -29,6 +29,7 @@ CServerListManager::CServerListManager ( const quint16  iNPortNum,
                                          const QString& sNCentServAddr,
                                          const QString& strServerInfo,
                                          const QString& strServerListFilter,
+                                         const QString& strServerExternalIP,
                                          const int      iNumChannels,
                                          CProtocol*     pNConLProt )
     : tsConsoleStream           ( *( ( new ConsoleWriterFactory() )->get() ) ),
@@ -42,7 +43,18 @@ CServerListManager::CServerListManager ( const quint16  iNPortNum,
     SetCentralServerAddress ( sNCentServAddr );
 
     // set the server internal address, including internal port number
-    SlaveCurLocalHostAddress = CHostAddress( NetworkUtil::GetLocalAddress().InetAddr, iNPortNum );
+    QHostAddress qhaServerExternalIP;
+    if ( strServerExternalIP == "" )
+    {
+        // No user-supplied override via --serverexternalip -> use auto-detection
+        qhaServerExternalIP = NetworkUtil::GetLocalAddress().InetAddr;
+    }
+    else
+    {
+        // User-supplied --serverexternalip
+        qhaServerExternalIP = QHostAddress(strServerExternalIP);
+    }
+    SlaveCurLocalHostAddress = CHostAddress( qhaServerExternalIP, iNPortNum );
 
     // prepare the server info information
     QStringList slServInfoSeparateParams;
