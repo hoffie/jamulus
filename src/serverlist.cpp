@@ -455,6 +455,19 @@ void CServerListManager::CentralServerQueryServerList ( const CHostAddress& Inet
                 {
                     vecServerInfo[iIdx].HostAddr = ServerList[iIdx].LHostAddr;
                 }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0) /* due to .isGlobal() */
+                else if ( InetAddr.InetAddr.isGlobal() && !vecServerInfo[iIdx].HostAddr.InetAddr.isGlobal() && ServerList[iIdx].LHostAddr.InetAddr.isGlobal() )
+                {
+                    // We've got a request from a public client, the server
+                    // list's entry's primary address is a private address,
+                    // but it supplied an additional public address using --serverexternalip.
+                    // In this case, use the latter.
+                    // This is common when running a central server with slave
+                    // servers behind a NAT and dealing with external, public
+                    // clients.
+                    vecServerInfo[iIdx].HostAddr = ServerList[iIdx].LHostAddr;
+                }
+#endif
                 else
                 {
                     // create "send empty message" for all registered servers
