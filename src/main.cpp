@@ -409,9 +409,9 @@ int main ( int argc, char** argv )
 
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0) /* due to .isGlobal() */
-        qInfo() << "Qt version >= 5.11, will use centralserver-behind-NAT detection";
+        tsConsole << "Qt version >= 5.11, will use centralserver-behind-NAT detection";
 #else
-        qInfo() << "Qt version < 5.11, cannot use centralserver-behind-NAT detection";
+        tsConsole << "Qt version < 5.11, cannot use centralserver-behind-NAT detection";
 #endif
 
 
