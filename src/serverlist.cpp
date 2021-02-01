@@ -448,7 +448,7 @@ void CServerListManager::CentralServerQueryServerList ( const CHostAddress& Inet
             if ( iIdx > 0 )
             {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0) /* due to .isGlobal() */
-                tsConsoleStream << "vecServerInfo[iIdx].HostAddr.InetAddr=" + (vecServerInfo[iIdx].HostAddr.InetAddr.toString()) + ", InetAddr.InetAddr=" + (InetAddr.InetAddr.toString()) + ", InetAddr.InetAddr.isGlobal()=" + (InetAddr.InetAddr.isGlobal() ? "true" : "false") + ", vecServerInfo[iIdx].HostAddr.InetAddr.isGlobal()=" + (vecServerInfo[iIdx].HostAddr.InetAddr.isGlobal() ? "true" : "false" ) + ", ServerList[iIdx].LHostAddr.InetAddr.isGlobal()=" + (ServerList[iIdx].LHostAddr.InetAddr.isGlobal() ? "true" : "false") + ", ServerList[iIdx].LHostAddr=" + (ServerList[iIdx].LHostAddr.toString());
+                tsConsoleStream << "vecServerInfo[iIdx].HostAddr.InetAddr=" + (vecServerInfo[iIdx].HostAddr.InetAddr.toString()) + ", InetAddr.InetAddr=" + (InetAddr.InetAddr.toString()) + ", InetAddr.InetAddr.isGlobal()=" + (InetAddr.InetAddr.isGlobal() ? "true" : "false") + ", vecServerInfo[iIdx].HostAddr.InetAddr.isGlobal()=" + (vecServerInfo[iIdx].HostAddr.InetAddr.isGlobal() ? "true" : "false" ) + ", ServerList[iIdx].LHostAddr.InetAddr.isGlobal()=" + (ServerList[iIdx].LHostAddr.InetAddr.isGlobal() ? "true" : "false") + ", ServerList[iIdx].LHostAddr=" + (ServerList[iIdx].LHostAddr.toString()) << endl;
 #endif
                 // check if the address of the client which is requesting the
                 // list is the same address as one server in the list -> in this
