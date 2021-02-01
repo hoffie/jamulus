@@ -408,13 +408,6 @@ int main ( int argc, char** argv )
         }
 
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0) /* due to .isGlobal() */
-        tsConsole << "Qt version >= 5.11, will use centralserver-behind-NAT detection" << endl;
-#else
-        tsConsole << "Qt version < 5.11, cannot use centralserver-behind-NAT detection" << endl;
-#endif
-
-
         // Server info ---------------------------------------------------------
         if ( GetStringArgument ( tsConsole,
                                  argc,
@@ -553,6 +546,11 @@ int main ( int argc, char** argv )
 #endif
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0) /* due to .isGlobal() */
+        tsConsole << "Qt version >= 5.11, will use centralserver-behind-NAT detection" << endl;
+#else
+        tsConsole << "Qt version < 5.11, cannot use centralserver-behind-NAT detection" << endl;
+#endif
 
     // Dependencies ------------------------------------------------------------
 #ifdef HEADLESS
