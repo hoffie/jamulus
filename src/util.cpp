@@ -1059,10 +1059,11 @@ QString NetworkUtil::FixAddress ( const QString& strAddress )
 }
 
 // Return whether the given HostAdress is within a private IP range
-// as per RFC 5735.
+// as per RFC 1918 & RFC 5735.
 bool NetworkUtil::IsPrivateNetworkIP ( const QHostAddress &qhAddr )
 {
-    // https://www.rfc-editor.org/rfc/rfc5735.html
+    // https://www.rfc-editor.org/rfc/rfc1918
+    // https://www.rfc-editor.org/rfc/rfc5735
     QList<QPair<QHostAddress, int>> addresses =
     {
         QPair<QHostAddress, int>(QHostAddress("10.0.0.0"), 8),
