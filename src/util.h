@@ -1117,6 +1117,7 @@ public:
     static CHostAddress GetLocalAddress();
     static QString      GetCentralServerAddress ( const ECSAddType eCentralServerAddressType,
                                                   const QString&   strCentralServerAddress );
+    static bool         IsPrivateNetworkIP ( const QHostAddress& qhAddr );
 };
 
 

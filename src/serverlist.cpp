@@ -447,9 +447,6 @@ void CServerListManager::CentralServerQueryServerList ( const CHostAddress& Inet
 
             if ( iIdx > 0 )
             {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0) /* due to .isGlobal() */
-                tsConsoleStream << "vecServerInfo[iIdx].HostAddr.InetAddr=" + (vecServerInfo[iIdx].HostAddr.InetAddr.toString()) + ", InetAddr.InetAddr=" + (InetAddr.InetAddr.toString()) + ", InetAddr.InetAddr.isGlobal()=" + (InetAddr.InetAddr.isGlobal() ? "true" : "false") + ", vecServerInfo[iIdx].HostAddr.InetAddr.isGlobal()=" + (vecServerInfo[iIdx].HostAddr.InetAddr.isGlobal() ? "true" : "false" ) + ", ServerList[iIdx].LHostAddr.InetAddr.isGlobal()=" + (ServerList[iIdx].LHostAddr.InetAddr.isGlobal() ? "true" : "false") + ", ServerList[iIdx].LHostAddr=" + (ServerList[iIdx].LHostAddr.toString()) << endl;
-#endif
                 // check if the address of the client which is requesting the
                 // list is the same address as one server in the list -> in this
                 // case he has to connect to the local host address and port
@@ -458,8 +455,7 @@ void CServerListManager::CentralServerQueryServerList ( const CHostAddress& Inet
                 {
                     vecServerInfo[iIdx].HostAddr = ServerList[iIdx].LHostAddr;
                 }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0) /* due to .isGlobal() */
-                else if ( InetAddr.InetAddr.isGlobal() && !vecServerInfo[iIdx].HostAddr.InetAddr.isGlobal() && ServerList[iIdx].LHostAddr.InetAddr.isGlobal() )
+                else if ( !NetworkUtil::IsPrivateNetworkIP(InetAddr.InetAddr) && NetworkUtil::IsPrivateNetworkIP(vecServerInfo[iIdx].HostAddr.InetAddr) && !NetworkUtil::IsPrivateNetworkIP(ServerList[iIdx].LHostAddr.InetAddr) )
                 {
                     // We've got a request from a public client, the server
                     // list's entry's primary address is a private address,
@@ -470,7 +466,6 @@ void CServerListManager::CentralServerQueryServerList ( const CHostAddress& Inet
                     // clients.
                     vecServerInfo[iIdx].HostAddr = ServerList[iIdx].LHostAddr;
                 }
-#endif
                 else
                 {
                     // create "send empty message" for all registered servers
