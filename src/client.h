@@ -113,7 +113,8 @@ public:
               const QString& strMIDISetup,
               const bool     bNoAutoJackConnect,
               const QString& strNClientName,
-              const bool     bNMuteMeInPersonalMix );
+              const bool     bNMuteMeInPersonalMix,
+              const float    fClientGain );
 
     virtual ~CClient();
 
@@ -331,6 +332,7 @@ protected:
     bool                    bReverbOnLeftChan;
     int                     iReverbLevel;
     CAudioReverb            AudioReverb;
+    float                   fClientGain;
 
     int                     iSndCrdPrefFrameSizeFactor;
     int                     iSndCrdFrameSizeFactor;

@@ -31,7 +31,8 @@ CClient::CClient ( const quint16  iPortNumber,
                    const QString& strMIDISetup,
                    const bool     bNoAutoJackConnect,
                    const QString& strNClientName,
-                   const bool     bNMuteMeInPersonalMix ) :
+                   const bool     bNMuteMeInPersonalMix,
+                   const float    fClientGain ) :
     ChannelInfo                      ( ),
     strClientName                    ( strNClientName ),
     Channel                          ( false ), /* we need a client channel -> "false" */
@@ -51,6 +52,7 @@ CClient::CClient ( const quint16  iPortNumber,
     iAudioInFader                    ( AUD_FADER_IN_MIDDLE ),
     bReverbOnLeftChan                ( false ),
     iReverbLevel                     ( 0 ),
+    fClientGain                      ( fClientGain ),
     iSndCrdPrefFrameSizeFactor       ( FRAME_SIZE_FACTOR_DEFAULT ),
     iSndCrdFrameSizeFactor           ( FRAME_SIZE_FACTOR_DEFAULT ),
     bSndCrdConversionBufferRequired  ( false ),
@@ -1066,6 +1068,13 @@ void CClient::ProcessAudioDataIntern ( CVector<int16_t>& vecsStereoSndCrd )
         AudioReverb.Process ( vecsStereoSndCrd,
                               bReverbOnLeftChan,
                               static_cast<float> ( iReverbLevel ) / AUD_REVERB_MAX / 4 );
+    }
+
+    // apply a general gain to all audio input:
+    for ( i = 0, j = 0; i < iMonoBlockSizeSam; i++, j += 2 )
+    {
+        vecsStereoSndCrd[j + 1] = static_cast<int16_t> ( fClientGain * vecsStereoSndCrd[j + 1] );
+        vecsStereoSndCrd[j]     = static_cast<int16_t> ( fClientGain * vecsStereoSndCrd[j] );
     }
 
     // apply pan (audio fader) and mix mono signals

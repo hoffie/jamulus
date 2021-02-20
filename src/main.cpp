@@ -74,6 +74,7 @@ int main ( int argc, char** argv )
     bool         bCustomPortNumberGiven      = false;
     int          iNumServerChannels          = DEFAULT_USED_NUM_CHANNELS;
     quint16      iPortNumber                 = DEFAULT_PORT_NUMBER;
+    int          fClientGain                 = 1.0f;
     ELicenceType eLicenceType                = LT_NO_LICENCE;
     QString      strMIDISetup                = "";
     QString      strConnOnStartupAddress     = "";
@@ -183,6 +184,26 @@ int main ( int argc, char** argv )
                 .arg( iNumServerChannels ) );
 
             CommandLineOptions << "--numchannels";
+            continue;
+        }
+
+
+        // Client gain ---------------------------------------------------------
+        if ( GetNumericArgument ( argc,
+                                  argv,
+                                  i,
+                                  "--clientgain",
+                                  "--clientgain",
+                                  0,
+                                  10,
+                                  rDbleArgument ) )
+        {
+            fClientGain = static_cast<float> ( rDbleArgument );
+
+            qInfo() << qUtf8Printable( QString("- applying client-side gain: %1")
+                .arg( fClientGain ) );
+
+            CommandLineOptions << "--clientgain";
             continue;
         }
 
@@ -677,7 +698,8 @@ int main ( int argc, char** argv )
                              strMIDISetup,
                              bNoAutoJackConnect,
                              strClientName,
-                             bMuteMeInPersonalMix );
+                             bMuteMeInPersonalMix,
+                             fClientGain );
 
             // load settings from init-file (command line options override)
             CClientSettings Settings ( &Client, strIniFileName );
