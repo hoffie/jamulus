@@ -422,6 +422,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="lblInputGain">
+            <property name="text">
+             <string>Input gain</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QLabel" name="lblNewClientLevel">
             <property name="text">
              <string>New Client Level</string>
@@ -455,10 +462,24 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QLineEdit" name="edtNewClientLevel"/>
+             <widget class="QLineEdit" name="edtInputGain"/>
             </item>
             <item>
              <widget class="QLabel" name="lblPercentUnit">
+              <property name="text">
+               <string>%</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLineEdit" name="edtNewClientLevel"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblPercentUnit_2">
               <property name="text">
                <string>%</string>
               </property>
@@ -682,6 +703,7 @@
   <tabstop>sldNetBufServer</tabstop>
   <tabstop>cbxAudioChannels</tabstop>
   <tabstop>cbxAudioQuality</tabstop>
+  <tabstop>edtInputGain</tabstop>
   <tabstop>edtNewClientLevel</tabstop>
   <tabstop>cbxSkin</tabstop>
   <tabstop>cbxLanguage</tabstop>

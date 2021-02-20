@@ -145,6 +145,7 @@ public:
         vecStoredFaderGroupID       ( MAX_NUM_STORED_FADER_SETTINGS, INVALID_INDEX ),
         vstrIPAddress               ( MAX_NUM_SERVER_ADDR_ITEMS, "" ),
         iNewClientFaderLevel        ( 100 ),
+        iInputGain                  ( 100 ),
         bConnectDlgShowAllMusicians ( true ),
         eChannelSortType            ( ST_NO_SORT ),
         iNumMixerPanelRows          ( 1 ),
@@ -173,6 +174,7 @@ public:
     CVector<int>     vecStoredFaderGroupID;
     CVector<QString> vstrIPAddress;
     int              iNewClientFaderLevel;
+    int              iInputGain;
     bool             bConnectDlgShowAllMusicians;
     EChSortType      eChannelSortType;
     int              iNumMixerPanelRows;

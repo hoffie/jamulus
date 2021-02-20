@@ -243,6 +243,8 @@ public:
     void SetRemoteChanPan ( const int iId, const float fPan )
         { Channel.SetRemoteChanPan ( iId, fPan ); }
 
+    void SetInputGain ( const int iNewGain ) { iInputGain = iNewGain; }
+
     void SetRemoteInfo() { Channel.SetRemoteInfo ( ChannelInfo ); }
 
     void CreateChatTextMes ( const QString& strChatText )
@@ -331,6 +333,7 @@ protected:
     bool                    bReverbOnLeftChan;
     int                     iReverbLevel;
     CAudioReverb            AudioReverb;
+    int                     iInputGain;
 
     int                     iSndCrdPrefFrameSizeFactor;
     int                     iSndCrdFrameSizeFactor;

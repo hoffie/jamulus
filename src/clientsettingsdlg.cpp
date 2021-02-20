@@ -253,6 +253,24 @@ CClientSettingsDlg::CClientSettingsDlg ( CClient*         pNCliP,
     edtNewClientLevel->setWhatsThis ( strNewClientLevel );
     edtNewClientLevel->setAccessibleName ( tr ( "New client level edit box" ) );
 
+    // input gain
+    QString strInputGain = "<b>" + tr ( "Input Gain" ) + ":</b>" +
+        tr ( "This setting allows to increase your input signal level. "
+        "If your sound is too quiet, first try to increase the level by "
+        "getting closer to the microphone, adjusting your sound equipment "
+        "or increasing levels in your operating system's input settings. "
+        "Only if this fails, set a value above 100% here. "
+        "If your sound is too loud, sounds distorted and is clipping, this "
+        "option will not help. Do not use it. The distortion will still be "
+        "there. Instead, decrease your input level by getting farther away "
+        "from your microphone, adjusting your sound equipment "
+        "or by decreasing your operating system's input settings.<br />"
+        "Valid range: 100% (default) - 1000% (ten-time increase)"
+        );
+    lblInputGain->setWhatsThis ( strInputGain );
+    edtInputGain->setWhatsThis ( strInputGain );
+    edtInputGain->setAccessibleName ( tr ( "Input gain edit box" ) );
+
     // custom central server address
     QString strCentrServAddr = "<b>" + tr ( "Custom Central Server Address" ) + ":</b> " +
         tr ( "Leave this blank unless you need to enter the address of a central "
@@ -306,6 +324,7 @@ CClientSettingsDlg::CClientSettingsDlg ( CClient*         pNCliP,
     lblOverallDelayValue->setText ( "---" );
     lblUpstreamValue->setText     ( "---" );
     edtNewClientLevel->setValidator ( new QIntValidator ( 0, 100, this ) ); // % range from 0-100
+    edtInputGain->setValidator ( new QIntValidator ( 100, 1000, this ) ); // % range from 100-1000
 
 
     // init slider controls ---
@@ -347,6 +366,9 @@ CClientSettingsDlg::CClientSettingsDlg ( CClient*         pNCliP,
 
     // update new client fader level edit box
     edtNewClientLevel->setText ( QString::number ( pSettings->iNewClientFaderLevel ) );
+
+    // update input gain edit box
+    edtInputGain->setText ( QString::number ( pSettings->iInputGain ) );
 
     // update enable small network buffers check box
     chbEnableOPUS64->setCheckState ( pClient->GetEnableOPUS64() ? Qt::Checked : Qt::Unchecked );
@@ -392,6 +414,9 @@ CClientSettingsDlg::CClientSettingsDlg ( CClient*         pNCliP,
     // line edits
     QObject::connect ( edtNewClientLevel, &QLineEdit::editingFinished,
         this, &CClientSettingsDlg::OnNewClientLevelEditingFinished );
+
+    QObject::connect ( edtInputGain, &QLineEdit::textChanged,
+        this, &CClientSettingsDlg::OnInputGainTextChanged );
 
     // combo boxes
     QObject::connect ( cbxSoundcard, static_cast<void (QComboBox::*) ( int )> ( &QComboBox::activated ),

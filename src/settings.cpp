@@ -270,6 +270,13 @@ void CClientSettings::ReadSettingsFromXML ( const QDomDocument&   IniXMLDocument
         iNewClientFaderLevel = iValue;
     }
 
+    // input gain
+    if ( GetNumericIniSet ( IniXMLDocument, "client", "inputgain",
+         100, 1000, iValue ) )
+    {
+        iInputGain = iValue;
+    }
+
     // connect dialog show all musicians
     if ( GetFlagIniSet ( IniXMLDocument, "client", "connectdlgshowallmusicians", bValue ) )
     {
@@ -610,6 +617,10 @@ void CClientSettings::WriteSettingsToXML ( QDomDocument& IniXMLDocument )
     // new client level
     SetNumericIniSet ( IniXMLDocument, "client", "newclientlevel",
         iNewClientFaderLevel );
+
+    // input gain
+    SetNumericIniSet ( IniXMLDocument, "client", "inputgain",
+        iInputGain );
 
     // connect dialog show all musicians
     SetFlagIniSet ( IniXMLDocument, "client", "connectdlgshowallmusicians",
