@@ -82,7 +82,7 @@ bool CSignalHandler::emitSignal ( int sigNum )
 void CSignalHandler::OnSocketNotify( int socket )
 {
     int sigNum;
-    if ( ::read ( socket, &sigNum, sizeof ( int ) ) == sizeof ( int ) )
+    if ( ::read ( socket, (char *)&sigNum, sizeof ( int ) ) == sizeof ( int ) )
     {
         emitSignal ( sigNum );
     }
