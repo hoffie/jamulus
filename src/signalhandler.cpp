@@ -82,7 +82,9 @@ bool CSignalHandler::emitSignal ( int sigNum )
 void CSignalHandler::OnSocketNotify( int socket )
 {
     int sigNum;
-    if ( ::read ( socket, &sigNum, sizeof ( int ) ) == sizeof ( int ) )
+    // The following read() triggers a Codacy/flawfinder check. Investigation has
+    // shown that this is a false positive as the proper buffer size is enforced.
+    if ( ::read ( socket, &sigNum, sizeof ( int ) ) == sizeof ( int ) ) // Flawfinder: ignore
     {
         emitSignal ( sigNum );
     }
