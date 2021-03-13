@@ -188,7 +188,24 @@ void CSocket::SendPacket ( const CVector<uint8_t>& vecbySendBuf,
         UdpSocketOutAddr.sin_port        = htons ( HostAddr.iPort );
         UdpSocketOutAddr.sin_addr.s_addr = htonl ( HostAddr.InetAddr.toIPv4Address() );
 
+        // re-send previous packet:
         sendto ( UdpSocket,
+                 (const char*) &( (CVector<uint8_t>) vecbyPrevSendBuf )[0],
+                 vecbyPrevSendBuf.Size(),
+                 0,
+                 (sockaddr*) &UdpSocketOutAddr,
+                 sizeof ( sockaddr_in ) );
+        // save current packet as previous packet for next call:
+        vecbyPrevSendBuf.Init(iVecSizeOut, 0);
+        std::copy ( vecbySendBuf.begin(), vecbySendBuf.end(), std::back_inserter ( vecbyPrevSendBuf ) );
+
+        sendto ( UdpSocket,
+                 (const char*) &( (CVector<uint8_t>) vecbySendBuf )[0],
+                 iVecSizeOut,
+                 0,
+                 (sockaddr*) &UdpSocketOutAddr,
+                 sizeof ( sockaddr_in ) );
+         sendto ( UdpSocket,
                  (const char*) &( (CVector<uint8_t>) vecbySendBuf )[0],
                  iVecSizeOut,
                  0,

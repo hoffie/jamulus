@@ -88,6 +88,7 @@ protected:
     QMutex           Mutex;
 
     CVector<uint8_t> vecbyRecBuf;
+    CVector<uint8_t> vecbyPrevSendBuf;
     CHostAddress     RecHostAddr;
     QHostAddress     SenderAddress;
     quint16          SenderPort;
