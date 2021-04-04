@@ -1,4 +1,4 @@
-VERSION = 3.6.2
+VERSION = 3.6.2-dev-hoffie
 
 # use target name which does not use a captital letter at the beginning
 contains(CONFIG, "noupcasename") {
