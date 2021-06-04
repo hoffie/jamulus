@@ -89,6 +89,8 @@ CClientDlg::CClientDlg ( CClient*         pNCliP,
     lbrInputLevelR->setToolTip ( strInpLevHTT );
     lbrInputLevelR->setEnabled ( false );
 
+    qDebug() << "CClientDlg ThreadID = " << QThread::currentThreadId();
+
     // connect/disconnect button
     butConnect->setWhatsThis ( "<b>" + tr ( "Connect/Disconnect Button" ) + ":</b> " +
                                tr ( "Opens a dialog where you can select a server to connect to. "
@@ -1414,6 +1416,7 @@ void CClientDlg::SetMixerBoardDeco ( const ERecorderState newRecorderState, cons
 
 void CClientDlg::SetPingTime ( const int iPingTime, const int iOverallDelayMs, const CMultiColorLED::ELightColor eOverallDelayLEDColor )
 {
+    qDebug() << "SetPingTime ThreadID = " << QThread::currentThreadId();
     // apply values to GUI labels, take special care if ping time exceeds
     // a certain value
     if ( iPingTime > 500 )
