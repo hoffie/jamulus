@@ -64,6 +64,13 @@ public:
     QString GetSelectedServerName() const { return strSelectedServerName; }
 
 protected:
+    virtual void changeEvent ( QEvent* pEvent )
+    {
+        if ( pEvent->type() == QEvent::LanguageChange )
+        {
+            retranslateUi ( this );
+        }
+    }
     virtual void showEvent ( QShowEvent* );
     virtual void hideEvent ( QHideEvent* );
 

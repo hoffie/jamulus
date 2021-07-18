@@ -612,7 +612,7 @@ int main ( int argc, char** argv )
             // load translation
             if ( bUseGUI && bUseTranslation )
             {
-                CLocale::LoadTranslation ( Settings.strLanguage, pApp );
+                CLocale::LoadTranslation ( Settings.strLanguage );
                 CInstPictures::UpdateTableOnLanguageChange();
             }
 
@@ -675,7 +675,7 @@ int main ( int argc, char** argv )
                 // load translation
                 if ( bUseGUI && bUseTranslation )
                 {
-                    CLocale::LoadTranslation ( Settings.strLanguage, pApp );
+                    CLocale::LoadTranslation ( Settings.strLanguage );
                 }
 
                 // update server list AFTER restoring the settings from the

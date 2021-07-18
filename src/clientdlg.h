@@ -113,6 +113,14 @@ protected:
     QTimer         TimerCheckAudioDeviceOk;
     QTimer         TimerDetectFeedback;
 
+protected:
+    virtual void changeEvent ( QEvent* pEvent )
+    {
+        if ( pEvent->type() == QEvent::LanguageChange )
+        {
+            retranslateUi ( this );
+        }
+    }
     virtual void closeEvent ( QCloseEvent* Event );
     virtual void dragEnterEvent ( QDragEnterEvent* Event ) { ManageDragNDrop ( Event, true ); }
     virtual void dropEvent ( QDropEvent* Event ) { ManageDragNDrop ( Event, false ); }

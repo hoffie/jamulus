@@ -43,6 +43,15 @@ class CChatDlg : public CBaseDlg, private Ui_CChatDlgBase
 {
     Q_OBJECT
 
+protected:
+    virtual void changeEvent ( QEvent* pEvent )
+    {
+        if ( pEvent->type() == QEvent::LanguageChange )
+        {
+            retranslateUi ( this );
+        }
+    }
+
 public:
     CChatDlg ( QWidget* parent = nullptr );
 

@@ -69,6 +69,13 @@ protected:
     void    UpdateAudioFaderSlider();
     QString GenSndCrdBufferDelayString ( const int iFrameSize, const QString strAddText = "" );
 
+    virtual void changeEvent ( QEvent* pEvent )
+    {
+        if ( pEvent->type() == QEvent::LanguageChange )
+        {
+            retranslateUi ( this );
+        }
+    }
     virtual void showEvent ( QShowEvent* );
 
     CClient*         pClient;
@@ -96,7 +103,7 @@ public slots:
     void OnAudioQualityActivated ( int iQualityIdx );
     void OnGUIDesignActivated ( int iDesignIdx );
     void OnDriverSetupClicked();
-    void OnLanguageChanged ( QString strLanguage ) { pSettings->strLanguage = strLanguage; }
+    void OnLanguageChanged ( QString strLanguage ) { pSettings->strLanguage = strLanguage; CLocale::LoadTranslation ( strLanguage ); }
     void OnAliasTextChanged ( const QString& strNewName );
     void OnInstrumentActivated ( int iCntryListItem );
     void OnCountryActivated ( int iCntryListItem );

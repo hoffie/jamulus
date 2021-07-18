@@ -656,7 +656,6 @@ void CLanguageComboBox::OnLanguageActivated ( int iLanguageIdx )
     // only update if the language selection is different from the current selected language
     if ( iIdxSelectedLanguage != iLanguageIdx )
     {
-        QMessageBox::information ( this, tr ( "Restart Required" ), tr ( "Please restart the application for the language change to take effect." ) );
 
         emit LanguageChanged ( itemData ( iLanguageIdx ).toString() );
     }
@@ -1698,11 +1697,16 @@ QPair<QString, QString> CLocale::FindSysLangTransFileName ( const QMap<QString, 
     return PairSysLang;
 }
 
-void CLocale::LoadTranslation ( const QString strLanguage, QCoreApplication* pApp )
+void CLocale::LoadTranslation ( const QString strLanguage )
 {
     // The translator objects must be static!
     static QTranslator myappTranslator;
     static QTranslator myqtTranslator;
+
+    auto pApp = QCoreApplication::instance();
+
+    pApp->removeTranslator ( &myappTranslator );
+    pApp->removeTranslator ( &myqtTranslator );
 
     QMap<QString, QString> TranslMap              = CLocale::GetAvailableTranslations();
     const QString          strTranslationFileName = TranslMap[strLanguage];

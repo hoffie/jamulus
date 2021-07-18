@@ -833,4 +833,9 @@ void CServerDlg::changeEvent ( QEvent* pEvent )
             QTimer::singleShot ( 0, this, SLOT ( show() ) );
         }
     }
+
+    if ( pEvent->type() == QEvent::LanguageChange )
+    {
+        retranslateUi ( this );
+    }
 }
